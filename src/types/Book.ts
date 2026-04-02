@@ -6,8 +6,7 @@ export interface Book {
   author: string;
   coverUrl?: string;
   genre?: string;
-  rating?: number;
+  rating: number | null;
   shelf: Shelf;
   note: string;
-  dateAdded: Date;
 }
