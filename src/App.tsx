@@ -1,11 +1,13 @@
 import './App.css';
 import { Routes, Route } from 'react-router';
-import { BookList } from './pages/BookList'
+import { HomeScreen } from './pages/HomeScreen'
+import { BookScreen } from './pages/BookScreen'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<BookList/>}/>
+      <Route path="/" element={<HomeScreen/>}/>
+      <Route path="/books/:id" element={<BookScreen/>}/>
     </Routes>
   );
 }

@@ -1,4 +1,4 @@
-export function BookList() {
+export function HomeScreen() {
   return (
     <>
       <section id="center">
