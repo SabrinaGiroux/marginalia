@@ -1,4 +1,3 @@
-import './App.css';
 import { Routes, Route } from 'react-router';
 import { HomeScreen } from './pages/HomeScreen'
 import { BookScreen } from './pages/BookScreen'
