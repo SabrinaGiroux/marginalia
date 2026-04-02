@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 
 export function BookScreen() {
-  const { id } = useParams()
+  const { id } = useParams();
   return (
     <>
       <section id="center">
