@@ -1,18 +1,6 @@
 import { Dexie, type EntityTable } from "dexie"
+import type { Book } from "../types/Book"
 
-export type Shelf = 'reading' | 'read' | 'want-to-read'
-
-export interface Book {
-  id: number
-  title: string
-  author: string
-  coverUrl?: string
-  genre?: string
-  rating?: number
-  shelf: Shelf
-  note: string
-  dateAdded: Date
-}
 
 const db = new Dexie("MarginaliaDB") as Dexie & {
   books: EntityTable<
