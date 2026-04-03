@@ -1,5 +1,6 @@
 import type { Book } from '../types/Book';
 import { BookCover } from './BookCover';
+import { StarRating } from './StarRating';
 
 export function BookDetails({ book }: { book: Book }) {
   return (
@@ -15,7 +16,8 @@ export function BookDetails({ book }: { book: Book }) {
 
         <div>
           <p> Shelf: {book.shelf}</p>
-          <p> Rating: {book.rating}</p>
+          <p> Rating:</p>
+          <StarRating rating={book.rating ?? 0} />
           <p> Genre: {book.genre} </p>
           <p> Added: {book.dateAdded} </p>
         </div>
