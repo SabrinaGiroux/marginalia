@@ -8,5 +8,6 @@ export interface Book {
   genre?: string;
   rating: number | null;
   shelf: Shelf;
-  note: string;
+  description: string;
+  dateAdded?: number;
 }

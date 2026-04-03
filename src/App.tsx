@@ -6,11 +6,11 @@ import { Header } from './components/Header';
 function App() {
   return (
     <>
-    <Header/>
-    <Routes>
-      <Route path="/" element={<HomeScreen />} />
-      <Route path="/books/:id" element={<BookScreen />} />
-    </Routes>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/books/:id" element={<BookScreen />} />
+      </Routes>
     </>
   );
 }

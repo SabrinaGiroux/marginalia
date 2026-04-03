@@ -8,16 +8,10 @@ export function BookCard({ book }: { book: Book }) {
       {/* Book Cover */}
       <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
         {book.coverUrl ? (
-          <img
-            src={book.coverUrl}
-            alt={book.title}
-            className="w-full h-full object-cover"
-          />
+          <img src={book.coverUrl} alt={book.title} className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center p-4">
-            <span className="text-sm text-[#6b6560] text-center">
-              {book.title}
-            </span>
+            <span className="text-sm text-[#6b6560] text-center">{book.title}</span>
           </div>
         )}
       </div>
