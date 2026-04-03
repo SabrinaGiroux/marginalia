@@ -6,15 +6,21 @@ export function BookCard({ book }: { book: Book }) {
   return (
     <li className="flex flex-col bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-4 gap-2">
       {/* Book Cover */}
-      {book.coverUrl ? (
-        <img src={book.coverUrl} alt={book.title} className="w-full h-full object-cover block" />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center p-4">
-          <span className="font-[Playfair_Display] text-[13px] text-[#6b6560] text-center leading-[1.4]">
-            {book.title}
-          </span>
-        </div>
-      )}
+      <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
+        {book.coverUrl ? (
+          <img
+            src={book.coverUrl}
+            alt={book.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center p-4">
+            <span className="text-sm text-[#6b6560] text-center">
+              {book.title}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* Book Details */}
       <div className="flex flex-col">

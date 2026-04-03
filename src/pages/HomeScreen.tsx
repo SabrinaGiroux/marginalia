@@ -24,13 +24,44 @@ const SAMPLE_BOOKS: Book[] = [
       'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1546112331i/3836.jpg',
     note: '',
   },
+  {
+    id: 3,
+    title: 'Don Quixote',
+    author: 'Miguel de Cervantes',
+    shelf: 'want-to-read',
+    genre: 'Classic',
+    rating: null,
+    coverUrl:
+      'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1546112331i/3836.jpg',
+    note: '',
+  },
+  {
+    id: 4,
+    title: 'Don Quixote',
+    author: 'Miguel de Cervantes',
+    shelf: 'want-to-read',
+    genre: 'Classic',
+    rating: null,
+    coverUrl:
+      'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1546112331i/3836.jpg',
+    note: '',
+  },
+  {
+    id: 5,
+    title: 'Don Quixote',
+    author: 'Miguel de Cervantes',
+    shelf: 'want-to-read',
+    genre: 'Classic',
+    rating: null,
+    note: '',
+  },
 ];
 
 export function HomeScreen() {
   return (
     <>
-      <section className="min-h-screen flex flex-col items-center justify-start py-10">
-        <h1 className="mb-8 text-2xl"> Marginalia - Book Lists</h1>
+      <section className="flex flex-col items-center justify-start py-10 gap-7">
+        <h2 className="text-2xl text-gray-300"> Your Books </h2>
         <BookList books={SAMPLE_BOOKS} />
       </section>
     </>
