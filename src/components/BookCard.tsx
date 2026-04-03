@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router';
 import type { Book } from '../types/Book';
 
 export function BookCard({ book }: { book: Book }) {
@@ -5,6 +6,7 @@ export function BookCard({ book }: { book: Book }) {
 
   return (
     <li className="flex flex-col bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-4 gap-2 hover:border-slate-600 hover:cursor-pointer transition duration-200">
+      <NavLink to={`/books/${book.id}`}>
       {/* Book Cover */}
       <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
         {book.coverUrl ? (
@@ -32,6 +34,7 @@ export function BookCard({ book }: { book: Book }) {
             ))}
         </div>
       </div>
+      </NavLink>
     </li>
   );
 }
