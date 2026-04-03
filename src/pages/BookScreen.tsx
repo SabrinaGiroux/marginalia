@@ -35,7 +35,7 @@ export function BookScreen() {
 
   return (
     <>
-      <section className="flex gap-5">
+      <section className="flex flex-col lg:flex-row gap-5 h-screen">
         <BookDetails book={book} />
         <NoteSection />
       </section>

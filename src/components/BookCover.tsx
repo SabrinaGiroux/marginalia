@@ -1,6 +1,6 @@
 export function BookCover({ title, coverUrl }: { coverUrl?: string; title: string }) {
   return (
-    <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
+    <div className="w-full aspect-[2/3] overflow-hidden rounded-md border-slate-600">
       {coverUrl ? (
         <img src={coverUrl} alt={title} className="w-full h-full object-cover" />
       ) : (
