@@ -1,4 +1,5 @@
 import type { Book } from '../types/Book';
+import { AddBookCard } from './AddBookCard';
 import { BookCard } from './BookCard';
 
 export function BookList({ books }: { books: Book[] }) {
@@ -7,6 +8,7 @@ export function BookList({ books }: { books: Book[] }) {
       {books.map((book) => {
         return <BookCard book={book} />;
       })}
+      <AddBookCard/>
     </ul>
   );
 }

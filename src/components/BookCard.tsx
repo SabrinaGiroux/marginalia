@@ -4,7 +4,7 @@ export function BookCard({ book }: { book: Book }) {
   const rating = book.rating ?? 0;
 
   return (
-    <li className="flex flex-col bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-4 gap-2">
+    <li className="flex flex-col bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-4 gap-2 hover:border-slate-600 hover:cursor-pointer transition duration-200">
       {/* Book Cover */}
       <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
         {book.coverUrl ? (
