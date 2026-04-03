@@ -29,8 +29,8 @@ const SAMPLE_BOOKS: Book[] = [
 export function HomeScreen() {
   return (
     <>
-      <section id="center">
-        <h1> Marginalia - Book Lists</h1>
+      <section className="min-h-screen flex flex-col items-center justify-start py-10">
+        <h1 className="mb-8 text-2xl"> Marginalia - Book Lists</h1>
         <BookList books={SAMPLE_BOOKS} />
       </section>
     </>
