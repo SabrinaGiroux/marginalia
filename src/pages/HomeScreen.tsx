@@ -1,6 +1,6 @@
 import { BookList } from '../components/BookList';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../lib/db'
+import { db } from '../lib/db';
 
 export function HomeScreen() {
   const books = useLiveQuery(() => db.books.toArray(), []);

@@ -6,7 +6,7 @@ import { AddBookModal } from './AddBookModal';
 
 export function BookList({ books }: { books: Book[] }) {
   const [isModalOpen, showModal] = useState(false);
-  
+
   return (
     <>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-4">
@@ -16,7 +16,7 @@ export function BookList({ books }: { books: Book[] }) {
         <AddBookCard onClick={() => showModal(true)} />
       </ul>
 
-      {isModalOpen && <AddBookModal onClose={()=> showModal(false)}/>}
+      {isModalOpen && <AddBookModal onClose={() => showModal(false)} />}
     </>
   );
 }
