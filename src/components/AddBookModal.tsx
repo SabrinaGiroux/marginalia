@@ -1,32 +1,8 @@
-import { useState } from 'react';
-import { db } from '../lib/db';
-import type { Book } from '../types/Book';
+import { useAddBookForm } from '../hooks/useAddBookForm';
 import { AddBookForm } from './AddBookForm';
 
 export function AddBookModal({ onClose }: { onClose: () => void }) {
-  const [form, setForm] = useState<Omit<Book, 'id'>>({
-    title: '',
-    author: '',
-    coverUrl: '',
-    genre: '',
-    rating: null,
-    shelf: 'want-to-read',
-    description: '',
-  });
-
-  const handleChange = (key: keyof typeof form, value: unknown) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSubmit = async () => {
-    await db.books.add({
-      ...form,
-      author: form.author.trim() || 'Unknown',
-      dateAdded: Date.now(),
-    });
-
-    onClose();
-  };
+  const { form, handleChange, handleSubmit } = useAddBookForm(onClose);
 
   return (
     <div
@@ -47,8 +23,7 @@ export function AddBookModal({ onClose }: { onClose: () => void }) {
           onClick={onClose}
           className="text-sm px-4 py-2 rounded-md bg-red-900 text-white hover:opacity-90 transition"
         >
-          {' '}
-          Cancel{' '}
+          Cancel
         </button>
       </div>
     </div>
