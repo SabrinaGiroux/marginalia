@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  lint-format-typecheck:
+  ci-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,3 +24,21 @@ jobs:
 
       - name: Run TypeScript check
         run: bun typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    needs: ci-checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun test
