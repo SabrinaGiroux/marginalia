@@ -37,7 +37,7 @@ export function BookScreen() {
     <>
       <section className="flex flex-col lg:flex-row lg:h-[90vh]">
         <BookDetails book={book} />
-        <NoteSection />
+        <NoteSection bookId={book.id} initialNote={book.note || ''} />
       </section>
     </>
   );
