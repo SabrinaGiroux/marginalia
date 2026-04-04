@@ -22,6 +22,7 @@ export function AddBookForm({
         value={form.title}
         onChange={(e) => onChange('title', e.target.value)}
         className="bg-[#121212] border border-[#2a2a2a] rounded-md p-2 text-white outline-none focus:border-[#c8a96e]"
+        required
       />
       <input
         placeholder="Author"
