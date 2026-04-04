@@ -4,7 +4,7 @@ import type { Book } from '../types/Book';
 import { AddBookForm } from './AddBookForm';
 
 export function AddBookModal({ onClose }: { onClose: () => void }) {
-   const [form, setForm] = useState<Omit<Book, 'id'>>({
+  const [form, setForm] = useState<Omit<Book, 'id'>>({
     title: '',
     author: '',
     coverUrl: '',
@@ -35,8 +35,15 @@ export function AddBookModal({ onClose }: { onClose: () => void }) {
         {/* Header */}
         <div className="text-lg text-white">Add Book</div>
 
-        <AddBookForm form={form}
-          onChange={handleChange} onSubmit={handleSubmit}/>
+        <AddBookForm form={form} onChange={handleChange} onSubmit={handleSubmit} />
+
+        <button
+          onClick={onClose}
+          className="text-sm px-4 py-2 rounded-md bg-red-900 text-white hover:opacity-90 transition"
+        >
+          {' '}
+          Cancel{' '}
+        </button>
       </div>
     </div>
   );
