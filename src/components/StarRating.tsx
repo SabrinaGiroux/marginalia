@@ -1,20 +1,26 @@
-export function StarRating({ rating }: { rating: number }) {
+export function StarRating({
+  rating,
+  onChange,
+}: {
+  rating: number;
+  onChange?: (value: number) => void;
+}) {
+  const isEditable = !!onChange;
+
   return (
-    <div className="h-[14px] flex justify-center items-center">
-      {rating > 0 ? (
-        // If rating is greater than 0, display stars
-        [1, 2, 3, 4, 5].map((n) => (
-          <span
-            key={n}
-            className={`text-[11px] ${n <= rating ? 'text-[#c8a96e]' : 'text-[#3a3530]'}`}
-          >
-            ★
-          </span>
-        ))
-      ) : (
-        // Display message if rating is null
-        <span className="text-sm text-gray-500">Not Rated</span>
-      )}
+    <div className="flex items-center gap-1">
+      {[1, 2, 3, 4, 5].map((n) => (
+        <button
+          key={n}
+          type="button"
+          onClick={() => onChange?.(n)}
+          className={`text-lg transition ${n <= rating ? 'text-[#c8a96e]' : 'text-[#3a3530]'} ${
+            isEditable ? 'hover:scale-110 cursor-pointer' : 'cursor-default'
+          }`}
+        >
+          ★
+        </button>
+      ))}
     </div>
   );
 }
