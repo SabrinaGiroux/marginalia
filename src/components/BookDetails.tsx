@@ -1,13 +1,19 @@
-import type { Book } from '../types/Book';
+import type { Book, Shelf } from '../types/Book';
 import { BookCover } from './BookCover';
 import { StarRating } from './StarRating';
 import { db } from '../lib/db';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 export function BookDetails({ book }: { book: Book }) {
   const navigate = useNavigate();
+  const [coverUrl, setCoverUrl] = useState(book.coverUrl);
+  const [title, setTitle] = useState(book.title);
+  const [author, setAuthor] = useState(book.author);
+  const [shelf, setShelf] = useState(book.shelf);
+  const [rating, setRating] = useState(book.rating ?? 0);
+  const [genre, setGenre] = useState(book.genre);
 
-  // Function for deleting the selected book
   const handleDelete = async () => {
     const confirmed = window.confirm(`Are you sure you want to delete "${book.title}"?`);
     if (!confirmed) return;
@@ -22,51 +28,101 @@ export function BookDetails({ book }: { book: Book }) {
     }
   };
 
+  const handleUpdate = async () => {
+    try {
+      await db.books.update(book.id, {
+        title,
+        author,
+        shelf,
+        rating,
+        genre,
+        coverUrl,
+      });
+      alert('Book details updated successfully!');
+    } catch (error) {
+      console.error('Error updating book details:', error);
+      alert('Failed to update the book.');
+    }
+  };
+
   return (
-    <section className="flex flex-col gap-2 m-5 lg:w-[50vw]">
-      <BookCover coverUrl={book.coverUrl} title={book.title} />
+    <section className="max-w-4xl mx-auto p-6 flex flex-col gap-6">
+      <BookCover coverUrl={coverUrl} title={title} />
 
-      {/** Book Fields */}
-      <section className="flex flex-col gap-4 border-slate-500 border-1 p-2">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-xl font-bold">{book.title}</h3>
-          <p className="font-semibold text-slate-400">{book.author}</p>
+      {/* Book Fields Section */}
+      <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
+        <div className="grid grid-cols-[120px_1fr] gap-y-4 gap-x-4 items-center">
+          {/* Title */}
+          <label className="text-sm text-slate-400">Title</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full rounded-md bg-transparent border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Author */}
+          <label className="text-sm text-slate-400">Author</label>
+          <input
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="w-full rounded-md bg-transparent border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Shelf */}
+          <label className="text-sm text-slate-400">Shelf</label>
+          <select
+            value={shelf}
+            onChange={(e) => setShelf(e.target.value as Shelf)}
+            className="w-full bg-transparent border border-slate-600 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="reading">Reading</option>
+            <option value="read">Read</option>
+            <option value="want-to-read">Want to Read</option>
+          </select>
+
+          {/* Rating */}
+          <label className="text-sm text-slate-400">Rating</label>
+          <div>
+            <StarRating rating={rating} />
+          </div>
+
+          {/* Genre */}
+          <label className="text-sm text-slate-400">Genre</label>
+          <input
+            type="text"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className="w-full rounded-md bg-transparent border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Cover URL */}
+          <label className="text-sm text-slate-400">Cover URL</label>
+          <input
+            type="url"
+            value={coverUrl}
+            onChange={(e) => setCoverUrl(e.target.value)}
+            className="w-full rounded-md bg-transparent border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <div className="flex justify-between">
-            <p> Shelf </p>
-            <p> {book.shelf}</p>
-          </div>
-
-          <div className="flex justify-between">
-            <p> Rating:</p>
-            <StarRating rating={book.rating ?? 0} />
-          </div>
-
-          <div className="flex justify-between">
-            <p> Genre </p>
-            <p> {book.genre}</p>
-          </div>
-
-          <div className="flex justify-between">
-            <p> Added </p>
-            <p>
-              {book.dateAdded !== undefined
-                ? new Date(book.dateAdded).toLocaleString()
-                : 'No date available'}
-            </p>
-          </div>
+        {/* Buttons */}
+        <div className="flex justify-center gap-4 mt-6">
+          <button
+            onClick={handleUpdate}
+            className="px-5 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 transition"
+          >
+            Save Changes
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-5 py-2 bg-red-700 text-white rounded-md hover:bg-red-600 transition"
+          >
+            Delete Book
+          </button>
         </div>
-
-        {/* Delete Button */}
-        <button
-          onClick={handleDelete}
-          className="mt-4 px-4 py-2 bg-red-800 text-white rounded hover:bg-red-950"
-        >
-          Delete Book
-        </button>
-      </section>
+      </div>
     </section>
   );
 }
