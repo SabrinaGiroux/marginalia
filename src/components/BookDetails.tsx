@@ -85,7 +85,7 @@ export function BookDetails({ book }: { book: Book }) {
           {/* Rating */}
           <label className="text-sm text-slate-400">Rating</label>
           <div>
-            <StarRating rating={rating} />
+            <StarRating rating={rating} onChange={setRating} />
           </div>
 
           {/* Genre */}
