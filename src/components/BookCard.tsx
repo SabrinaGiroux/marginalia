@@ -18,7 +18,9 @@ export function BookCard({ book }: { book: Book }) {
             <div> {book?.author || 'Unknown'} </div>
           </div>
 
-          <StarRating rating={rating} />
+          <div className="flex justify-center">
+            <StarRating rating={rating} />
+          </div>
         </div>
       </NavLink>
     </li>
