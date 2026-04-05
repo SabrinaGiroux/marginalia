@@ -9,12 +9,10 @@ interface NoteSectionProps {
 export function NoteSection({ bookId, initialNote }: NoteSectionProps) {
   const [note, setNote] = useState(initialNote);
 
-  // Handle note change
   const handleNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNote(event.target.value);
   };
 
-  // Save the updated note to the database
   const saveNote = async () => {
     try {
       await db.books.update(bookId, { note });
@@ -26,27 +24,29 @@ export function NoteSection({ bookId, initialNote }: NoteSectionProps) {
   };
 
   return (
-    <section className="gap-4 m-5 flex flex-col rounded-lg p-5 bg-gray-950 overflow-auto w-[50vw]">
-      <h2 className="text-2xl font-semibold"> Notes </h2>
+    <section className="max-w-2xl w-full mx-auto">
+      <div className="bg-[#1a1a1a] rounded-xl p-6 border border-slate-700 shadow-lg flex flex-col gap-4 h-full">
+        {/* Title */}
+        <h2 className="text-xl font-semibold text-slate-200">Notes</h2>
 
-      {/* If the note is empty and not editing, show placeholder text */}
-      <div className="text-sm leading-relaxed">
+        {/* Textarea */}
         <textarea
           value={note}
           onChange={handleNoteChange}
-          className="w-full p-2 rounded-md min-h-[200px]"
-          rows={6}
-          placeholder="Add a note here..."
+          placeholder="Write your thoughts, quotes, or reflections..."
+          className="w-full lg:h-full rounded-md bg-transparent px-4 py-3 text-sm leading-relaxed text-slate-200 placeholder:text-slate-500"
         />
-      </div>
 
-      {/* Save note button*/}
-      <button
-        onClick={saveNote}
-        className="mt-2 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-      >
-        Save Note
-      </button>
+        {/* Footer */}
+        <div className="flex justify-end">
+          <button
+            onClick={saveNote}
+            className="px-5 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 transition active:scale-95"
+          >
+            Save Note
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

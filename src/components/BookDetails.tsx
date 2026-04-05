@@ -50,8 +50,8 @@ export function BookDetails({ book }: { book: Book }) {
       <BookCover coverUrl={coverUrl} title={title} />
 
       {/* Book Fields Section */}
-      <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
-        <div className="grid grid-cols-[120px_1fr] gap-y-4 gap-x-4 items-center">
+      <div className="bg-[#1a1a1a] rounded-lg p-2 border border-slate-700">
+        <div className="grid grid-cols-[120px_1fr] gap-y-2 gap-x-4 items-center">
           {/* Title */}
           <label className="text-sm text-slate-400">Title</label>
           <input
