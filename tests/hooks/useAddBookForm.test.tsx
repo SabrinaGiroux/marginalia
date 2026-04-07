@@ -3,19 +3,18 @@ import { renderHook, act } from '../test-utils';
 import { db } from '../../src/lib/db';
 import { useAddBookForm } from '../../src/hooks/useAddBookForm';
 
-mock.module('../../src/lib/db', () => ({
-  db: {
-    books: {
-      add: mock(),
-    },
-  },
-}));
+const dbMock = {
+  books: { add: mock() },
+};
+
+mock.module('../../src/lib/db', () => ({ db: dbMock }));
 
 describe('useAddBookForm', () => {
   const onClose = mock();
 
   beforeEach(() => {
     onClose.mockClear();
+    dbMock.books.add.mockClear();
   });
 
   it('initializes with default values', () => {
