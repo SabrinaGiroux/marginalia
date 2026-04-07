@@ -1,8 +1,11 @@
 import { render, screen } from '../test-utils';
-import { expect, describe, it } from 'bun:test';
-
+import { expect, describe, it, afterEach } from 'bun:test';
+import { cleanup } from '@testing-library/react';
 import { BookList } from '../../src/components/BookList';
 import type { Book } from '../../src/types/Book';
+
+// Ensures DOM is wiped before rendering
+afterEach(cleanup);
 
 describe('BookList Component', () => {
   it('renders a list of books', () => {

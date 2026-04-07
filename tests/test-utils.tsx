@@ -5,5 +5,5 @@ import { MemoryRouter } from 'react-router';
 const customRender = (ui: React.ReactNode, options = {}) =>
   render(<MemoryRouter>{ui}</MemoryRouter>, options);
 
-export { screen } from '@testing-library/react';
+export { screen, fireEvent } from '@testing-library/react';
 export { customRender as render };
