@@ -1,6 +1,6 @@
 # marginalia
 
-Book List App
+A simple book list app for tracking, organizing, and taking notes on your reading.
 
 ## Resources
 
@@ -8,4 +8,3 @@ Book List App
 - [Dexie.js](https://dexie.org) - wrapper for IndexedDB, used for database
 - [React Router](https://reactrouter.com/home) - router for React
 - [Bun](https://bun.com) - toolkit for Javascript and Typescript. Includes a package manager + test runner
-  - [happy-dom for DOM testing](https://bun.com/docs/guides/test/happy-dom)
