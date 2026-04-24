@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format": "prettier -c .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest --coverage"
+    "test": "vitest"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
