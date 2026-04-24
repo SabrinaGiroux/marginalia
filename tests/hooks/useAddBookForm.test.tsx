@@ -1,20 +1,18 @@
-import { describe, it, expect, beforeEach, mock } from 'bun:test';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, act } from '../test-utils';
 import { db } from '../../src/lib/db';
 import { useAddBookForm } from '../../src/hooks/useAddBookForm';
 
-const dbMock = {
-  books: { add: mock() },
-};
-
-mock.module('../../src/lib/db', () => ({ db: dbMock }));
+vi.mock('../../src/lib/db', () => ({
+  db: { books: { add: vi.fn() } },
+}));
 
 describe('useAddBookForm', () => {
-  const onClose = mock();
+  const onClose = vi.fn();
 
   beforeEach(() => {
     onClose.mockClear();
-    dbMock.books.add.mockClear();
+    vi.mocked(db.books.add).mockClear();
   });
 
   it('initializes with default values', () => {

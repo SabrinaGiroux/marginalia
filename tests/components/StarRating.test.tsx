@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '../test-utils';
-import { mock, expect, describe, it } from 'bun:test';
+import { vi, expect, describe, it } from 'vitest';
 import { StarRating } from '../../src/components/StarRating';
 
 describe('StarRating', () => {
@@ -10,7 +10,7 @@ describe('StarRating', () => {
   });
 
   it('calls onChange with correct value when clicked', () => {
-    const onChange = mock();
+    const onChange = vi.fn();
 
     render(<StarRating rating={2} onChange={onChange} />);
     const stars = screen.getAllByRole('button');
@@ -22,7 +22,7 @@ describe('StarRating', () => {
   });
 
   it('resets rating to 0 when clicking same star', () => {
-    const onChange = mock();
+    const onChange = vi.fn();
 
     render(<StarRating rating={3} onChange={onChange} />);
     const stars = screen.getAllByRole('button');
@@ -34,7 +34,7 @@ describe('StarRating', () => {
   });
 
   it('does nothing when not editable', () => {
-    const onChange = mock();
+    const onChange = vi.fn();
 
     render(<StarRating rating={3} />);
     const stars = screen.getAllByRole('button');
