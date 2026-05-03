@@ -36,7 +36,7 @@ describe('BookList Component', () => {
   });
 
   it('renders the add book card', () => {
-    render(<BookList books={[]} />);
+    render(<BookList books={[]} onAddBook={() => {}} />);
 
     // Check for add book message only
     expect(screen.getByText('ADD BOOK')).toBeInTheDocument();
