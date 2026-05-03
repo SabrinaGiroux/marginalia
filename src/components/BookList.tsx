@@ -9,7 +9,7 @@ export function BookList({ books }: { books: Book[] }) {
 
   return (
     <>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-4 auto-rows-fr">
         {books.map((book) => {
           return <BookCard key={book.id} book={book} />;
         })}
