@@ -2,7 +2,7 @@
 
 A simple book list app for tracking, organizing, and taking notes on your reading.
 
-Link: `deployment coming soon!`
+Link: https://sabrinagiroux.github.io/marginalia/
 
 ## Features
 
