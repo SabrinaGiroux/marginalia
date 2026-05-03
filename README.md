@@ -2,7 +2,27 @@
 
 A simple book list app for tracking, organizing, and taking notes on your reading.
 
-## Resources
+Link: `deployment coming soon!`
+
+## Features
+
+- Add and manage books
+- Track reading status (e.g. want to read, reading, finished)
+- Rate books
+- Write notes per book
+- Data stored locally (no account required)
+
+## Getting Started
+
+```bash
+# install dependencies
+bun install
+
+# run dev server
+bun run dev
+```
+
+## Tech Stack
 
 - [Vite](https://vite.dev) - frontend build tool used for the React app
   - [Vitest](https://vitest.dev) - testing framework for Vite
