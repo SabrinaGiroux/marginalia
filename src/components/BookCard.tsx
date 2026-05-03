@@ -7,18 +7,22 @@ export function BookCard({ book }: { book: Book }) {
   const rating = book.rating ?? 0;
 
   return (
-    <li className="flex flex-col bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-2 gap-2 hover:border-slate-600 hover:cursor-pointer transition duration-200">
-      <NavLink to={`/books/${book.id}`}>
+    <li className="flex flex-col h-full min-h-[280px] bg-[#1a1a1a] rounded-lg border border-[#2a2a2a] p-4 gap-3 hover:border-slate-600 hover:cursor-pointer transition duration-200">
+      <NavLink to={`/books/${book.id}`} className="flex flex-col h-full">
+        {/* Cover */}
         <BookCover coverUrl={book.coverUrl} title={book.title} />
 
         {/* Book Details */}
-        <div className="flex flex-col gap-1 mt-2">
-          <div className="flex flex-col gap-2">
-            <div> {book.title} </div>
-            <div> {book?.author || 'Unknown'} </div>
+        <div className="flex flex-col justify-between flex-1 mt-4">
+          {/* Title + Author */}
+          <div className="flex flex-col gap-1">
+            <div className="text-sm line-clamp-2 min-h-[2.5rem]">{book.title}</div>
+
+            <div className="text-xs text-gray-400 line-clamp-1">{book?.author || 'Unknown'}</div>
           </div>
 
-          <div className="flex justify-center">
+          {/* Rating */}
+          <div className="flex justify-center mt-3">
             <StarRating rating={rating} />
           </div>
         </div>
