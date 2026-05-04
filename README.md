@@ -12,7 +12,6 @@ Link: https://sabrinagiroux.github.io/marginalia/
 - Write notes per book
 - Data stored locally (no account required)
 
-
 ## Prerequisites
 
 Before running this project, make sure you have:
