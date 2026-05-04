@@ -1,4 +1,5 @@
 import type { Book } from '../types/Book';
+import { db } from './db';
 
 function formatDataForExport(books: Book[]) {
   const payload = {
@@ -25,4 +26,14 @@ async function downloadJSON(data: unknown, filename: string) {
   a.click();
 
   URL.revokeObjectURL(url);
+}
+
+export async function exportBooks() {
+  const books = await db.books.toArray();
+
+  const payload = formatDataForExport(books);
+
+  const filename = `marginalia-backup-${new Date().toISOString().split('T')[0]}.json`;
+
+  downloadJSON(payload, filename);
 }
