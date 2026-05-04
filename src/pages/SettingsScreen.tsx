@@ -1,3 +1,5 @@
+import { exportBooks } from '../lib/file';
+
 export function SettingsScreen() {
   return (
     <section>
@@ -15,7 +17,10 @@ export function SettingsScreen() {
           {/* Export */}
           <div>
             <p className="text-sm text-gray-600 mb-2">Download a backup of your books and notes.</p>
-            <button className="w-full border py-2 rounded-md hover:bg-gray-700 transition">
+            <button
+              className="w-full border py-2 rounded-md hover:bg-gray-700 transition"
+              onClick={exportBooks}
+            >
               Export as JSON
             </button>
           </div>
