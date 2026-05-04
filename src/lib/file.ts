@@ -49,10 +49,16 @@ export async function exportBooks() {
  * IMPORT FUNCTIONS
  */
 function parseJson(json: string) {
-  // try catch, make sure file provided is json
+  try {
+    const parsed = JSON.parse(json);
+    // TODO: validate parsed
+    return parsed;
+  } catch (error) {
+    return { success: false, error: error };
+  }
 }
 
-function isExportPayload(json: string): boolean {
+function validateExportPayload(json: string): boolean {
   // ensures that parsed json file is actually an export payload
   // check version, only version 1 supported for now
 
@@ -60,7 +66,11 @@ function isExportPayload(json: string): boolean {
 }
 
 export async function importBooks(json: string) {
-  // get payload by parsing json
-  // remove ids so theres no conflicts
-  // add them to db (currently just merge)
+  const payload = parseJson(json);
+  const books: Book[] = payload.data.books;
+
+  // remove ids so theres no conflicts in db
+  const sanitizedBooks = books.map(({ id, ...fields }) => fields);
+
+  // TODO: add them to db (either merge or replace)
 }
