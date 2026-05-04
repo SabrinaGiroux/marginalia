@@ -1,19 +1,23 @@
 import type { Book } from '../types/Book';
 import { db } from './db';
 
-function formatDataForExport(books: Book[]) {
-  const payload = {
+type ExportPayload = {
+  version: number;
+  exportedAt: string;
+  data: {
+    books: Book[];
+  };
+};
+
+function formatDataForExport(books: Book[]): ExportPayload {
+  return {
     version: 1,
     exportedAt: new Date().toISOString(),
-    data: {
-      books,
-    },
+    data: { books },
   };
-
-  return payload;
 }
 
-async function downloadJSON(data: unknown, filename: string) {
+async function downloadJSON(data: ExportPayload, filename: string) {
   const blob = new Blob([JSON.stringify(data, null, 2)], {
     type: 'application/json',
   });
