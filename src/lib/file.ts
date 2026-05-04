@@ -1,6 +1,9 @@
 import type { Book } from '../types/Book';
 import { db } from './db';
 
+/**
+ * EXPORT FUNCTIONS
+ */
 type ExportPayload = {
   version: number;
   exportedAt: string;
@@ -40,4 +43,24 @@ export async function exportBooks() {
   const filename = `marginalia-backup-${new Date().toISOString().split('T')[0]}.json`;
 
   downloadJSON(payload, filename);
+}
+
+/**
+ * IMPORT FUNCTIONS
+ */
+function parseJson(json: string) {
+  // try catch, make sure file provided is json
+}
+
+function isExportPayload(json: string): boolean {
+  // ensures that parsed json file is actually an export payload
+  // check version, only version 1 supported for now
+
+  return true;
+}
+
+export async function importBooks(json: string) {
+  // get payload by parsing json
+  // remove ids so theres no conflicts
+  // add them to db (currently just merge)
 }
