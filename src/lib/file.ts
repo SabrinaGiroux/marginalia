@@ -48,26 +48,39 @@ export async function exportBooks() {
 /**
  * IMPORT FUNCTIONS
  */
-function parseJson(json: string) {
+function parseAndValidate(json: string): ExportPayload {
+  let parsed: unknown;
+
   try {
-    const parsed = JSON.parse(json);
-    // TODO: validate parsed
-    return parsed;
-  } catch (error) {
-    return { success: false, error: error };
+    // parse the provided json file
+    parsed = JSON.parse(json);
+  } catch {
+    throw new Error('Invalid JSON Format');
   }
-}
 
-function validateExportPayload(json: string): boolean {
-  // ensures that parsed json file is actually an export payload
-  // check version, only version 1 supported for now
+  // Validate parsed json's structure
+  if (typeof parsed !== 'object' || parsed === null) {
+    throw new Error('Invalid JSON structure');
+  }
 
-  return true;
+  // Check to make sure data + books structure is correct
+  const obj = parsed as Record<string, unknown>;
+
+  if (
+    typeof obj.data !== 'object' ||
+    obj.data === null ||
+    !Array.isArray((obj.data as Record<string, unknown>).books)
+  ) {
+    throw new Error('Invalid data format');
+  }
+
+  return obj as unknown as ExportPayload;
 }
 
 export async function importBooks(json: string) {
-  const payload = parseJson(json);
-  const books: Book[] = payload.data.books;
+  const result = parseAndValidate(json);
+
+  const books = result.data.data.books;
 
   // remove ids so theres no conflicts in db
   const sanitizedBooks = books.map(({ id, ...fields }) => fields);
