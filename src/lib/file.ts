@@ -42,7 +42,7 @@ export async function exportBooks() {
 
   const filename = `marginalia-backup-${new Date().toISOString().split('T')[0]}.json`;
 
-  downloadJSON(payload, filename);
+  await downloadJSON(payload, filename);
 }
 
 /**
