@@ -48,7 +48,7 @@ export async function exportBooks() {
 /**
  * IMPORT FUNCTIONS
  */
-function parseAndValidate(json: string): ExportPayload {
+export function parseAndValidate(json: string): ExportPayload {
   let parsed: unknown;
 
   try {
@@ -77,13 +77,18 @@ function parseAndValidate(json: string): ExportPayload {
   return obj as unknown as ExportPayload;
 }
 
-export async function importBooks(json: string) {
-  const result = parseAndValidate(json);
+export async function importBooks(json: string, replaceBooks: boolean) {
+  const payload = parseAndValidate(json);
+  const books = payload.data.books;
 
-  const books = result.data.data.books;
-
-  // remove ids so theres no conflicts in db
+  // Remove ids to avoid primary key conflicts
   const sanitizedBooks = books.map(({ id, ...fields }) => fields);
 
-  // TODO: add them to db (either merge or replace)
+  await db.transaction('rw', db.books, async () => {
+    if (replaceBooks) {
+      await db.books.clear();
+    }
+
+    await db.books.bulkAdd(sanitizedBooks);
+  });
 }
