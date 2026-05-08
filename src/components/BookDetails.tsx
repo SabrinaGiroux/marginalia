@@ -109,16 +109,10 @@ export function BookDetails({ book }: { book: Book }) {
 
         {/* Buttons */}
         <div className="flex justify-center gap-4 mt-6">
-          <button
-            onClick={handleUpdate}
-            className="px-5 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 transition"
-          >
+          <button onClick={handleUpdate} className="btn-primary">
             Save Changes
           </button>
-          <button
-            onClick={handleDelete}
-            className="px-5 py-2 bg-red-700 text-white rounded-md hover:bg-red-600 transition"
-          >
+          <button onClick={handleDelete} className="btn-secondary">
             Delete Book
           </button>
         </div>

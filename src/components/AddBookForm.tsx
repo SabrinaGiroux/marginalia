@@ -75,10 +75,7 @@ export function AddBookForm({
       />
 
       {/* Submit Button */}
-      <button
-        type="submit"
-        className="text-sm px-4 py-2 rounded-md bg-[#c8a96e] text-black hover:opacity-90 transition"
-      >
+      <button type="submit" className="btn-primary">
         Add
       </button>
     </form>
