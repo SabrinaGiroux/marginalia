@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router';
-import BookImg from '../assets/book-shelf-line.png';
-import SettingsImg from '../assets/settings.png';
+// import BookImg from '../assets/book-shelf-line.png';
+// import SettingsImg from '../assets/settings.png';
+import { Settings, Library } from 'lucide-react';
 
 export function NavBar() {
   return (
@@ -8,10 +9,10 @@ export function NavBar() {
       <ul>
         <li className="flex gap-8">
           <NavLink to="/">
-            <img src={BookImg} className="w-7" alt="Book Icon" />
+            <Library className="w-7" />
           </NavLink>
           <NavLink to="/settings">
-            <img src={SettingsImg} className="w-7" alt="Settings Icon" />
+            <Settings className="w-7" />
           </NavLink>
         </li>
       </ul>

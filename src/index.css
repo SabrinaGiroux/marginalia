@@ -24,7 +24,7 @@
 
 @layer base {
   body {
-    @apply bg-(--background-light) text-(--text-light) dark:bg-(--background-dark) dark:text-(--text-dark) font-sans transition-colors duration-300;
+    @apply bg-(--background-light) text-(--text-light) dark:bg-(--background-dark) dark:text-(--text-dark);
   }
   h1,
   h2,
