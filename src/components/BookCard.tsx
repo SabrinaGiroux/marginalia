@@ -7,7 +7,7 @@ export function BookCard({ book }: { book: Book }) {
   const rating = book.rating ?? 0;
 
   return (
-    <li className="flex flex-col h-full min-h-[280px] rounded-lg border border-[#2a2a2a] p-4 gap-3 hover:border-slate-600 hover:cursor-pointer transition duration-200">
+    <li className="flex flex-col h-full min-h-70 rounded-lg border border-[#2a2a2a] p-4 gap-3 hover:border-slate-600 hover:cursor-pointer transition duration-200">
       <NavLink to={`/books/${book.id}`} className="flex flex-col h-full">
         {/* Cover */}
         <BookCover coverUrl={book.coverUrl} title={book.title} />
