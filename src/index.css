@@ -16,7 +16,7 @@
   --color-primary-600: #d9c02f;
 
   /* Light and Dark Mode */
-  --background-light: var(--color-stone-200);
+  --background-light: var(--color-stone-50);
   --background-dark: var(--color-slate-950);
   --text-light: var(--color-slate-900);
   --text-dark: var(--color-stone-100);
