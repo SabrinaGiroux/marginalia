@@ -5,7 +5,7 @@ import { Settings, Library } from 'lucide-react';
 
 export function NavBar() {
   return (
-    <nav className="px-5">
+    <nav className="navbar">
       <ul>
         <li className="flex gap-8">
           <NavLink to="/">

@@ -5,26 +5,54 @@
   --font-sans:
     'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
   --font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
 
-  /* Primary */
-  --color-primary-50: #fdfbf0;
-  --color-primary-500: #efd855;
-  --color-primary-600: #d9c02f;
+  /* Colors (Navy and Yellow) */
 
-  /* Light and Dark Mode */
-  --background-light: var(--color-stone-50);
-  --background-dark: var(--color-slate-950);
-  --text-light: var(--color-slate-900);
-  --text-dark: var(--color-stone-100);
+  --color-brand-950: #0b1120;
+  --color-brand-900: #14213d;
+  --color-brand-800: #1f335c;
+  --color-brand-700: #334a74;
+
+  --color-primary-50: #fffbea;
+  --color-primary-500: #e3c94b;
+  --color-primary-600: #d4b93d;
+
+  /*Light Mode*/
+  --background-light: #fafaf7;
+  --surface-light: #ffffff;
+  --surface-light-alt: #fdfcf9;
+
+  /* Borders */
+  --border-light: #e7e5e4;
+
+  /* Text */
+  --text-light: #172033;
+  --text-muted-light: #6b7280;
+
+  /*Dark mode*/
+  --background-dark: #020617;
+  --surface-dark: #0f172a;
+  --surface-dark-alt: #111827;
+
+  --border-dark: #1e293b;
+
+  --text-dark: #f5f5f4;
+  --text-muted-dark: #94a3b8;
 }
 
 @layer base {
   body {
-    @apply bg-(--background-light) text-(--text-light) dark:bg-(--background-dark) dark:text-(--text-dark);
+    @apply bg-(--background-light)
+           text-(--text-light)
+           antialiased
+           dark:bg-(--background-dark)
+           dark:text-(--text-dark);
   }
   h1,
   h2,
@@ -32,7 +60,12 @@
   h4,
   h5,
   h6 {
-    @apply font-serif;
+    @apply font-serif text-(--color-brand-900)
+           dark:text-stone-100;
+  }
+
+  ::selection {
+    @apply bg-primary-500/40;
   }
 }
 
@@ -42,25 +75,97 @@
   }
 
   .text-muted {
-    @apply text-slate-600 dark:text-slate-400;
+    @apply text-(--text-muted-light)
+           dark:text-(--text-muted-dark);
   }
 
+  /*Buttons*/
+
   .btn-primary {
-    @apply bg-primary-500 text-black px-4 py-2 rounded-md
-           hover:bg-primary-600 active:bg-primary-600
-           transition-colors duration-200;
+    @apply bg-primary-500
+           text-slate-950
+           px-4 py-2
+           rounded-lg
+           font-medium
+           shadow-sm
+           hover:bg-primary-600
+           hover:shadow-md
+           active:scale-[0.99]
+           transition-all duration-200;
   }
 
   .btn-secondary {
-    @apply border border-stone-300 dark:border-slate-700
-           px-4 py-2 rounded-md
-           hover:bg-stone-100 dark:hover:bg-slate-800
-           transition-colors duration-200;
+    @apply bg-white/80
+           border border-(--border-light)
+           text-(--color-brand-900)
+           px-4 py-2
+           rounded-lg
+           hover:bg-slate-50
+           hover:border-slate-300
+           transition-all duration-200
+
+           dark:bg-slate-900
+           dark:border-(--border-dark)
+           dark:text-slate-100
+           dark:hover:bg-slate-800;
   }
 
+  /*Card */
   .card {
-    @apply bg-white dark:bg-slate-900
-           border border-stone-200 dark:border-slate-800
-           rounded-xl shadow-sm;
+    @apply bg-(--surface-light)
+           border border-(--border-light)
+           rounded-xl
+
+           shadow-[0_2px_8px_rgba(20,33,61,0.06)]
+
+           hover:shadow-[0_6px_20px_rgba(20,33,61,0.10)]
+           hover:-translate-y-[1px]
+
+           transition-all duration-300
+
+           dark:bg-(--surface-dark)
+           dark:border-(--border-dark)
+           dark:shadow-none;
+  }
+
+  /*Navbar*/
+
+  .navbar {
+    @apply bg-[rgba(255,255,255,0.72)]
+           border-b border-(--border-light)
+           backdrop-blur-md
+
+           dark:bg-[rgba(2,6,23,0.75)]
+           dark:border-(--border-dark);
+  }
+
+  /*Icons and Links*/
+
+  .icon-button {
+    @apply text-(--color-brand-800)
+           hover:text-(--color-brand-900)
+           transition-colors duration-200
+
+           dark:text-slate-300
+           dark:hover:text-white;
+  }
+
+  .link {
+    @apply text-(--color-brand-800)
+           hover:text-(--color-brand-900)
+           underline-offset-4
+           hover:underline
+
+           dark:text-slate-300
+           dark:hover:text-white;
+  }
+
+  /*Ratings*/
+  .rating-star {
+    @apply text-primary-600;
+  }
+
+  .rating-star-muted {
+    @apply text-stone-300 dark:text-slate-700;
   }
 }
