@@ -50,10 +50,10 @@ export function BookDetails({ book }: { book: Book }) {
       <BookCover coverUrl={coverUrl} title={title} />
 
       {/* Book Fields Section */}
-      <div className="bg-[#1a1a1a] rounded-lg p-2 border border-slate-700">
+      <div className="card rounded-lg p-2 border border-slate-700">
         <div className="grid grid-cols-[120px_1fr] gap-y-2 gap-x-4 items-center">
           {/* Title */}
-          <label className="text-sm text-slate-400">Title</label>
+          <label className="text-sm">Title</label>
           <input
             type="text"
             value={title}
@@ -62,7 +62,7 @@ export function BookDetails({ book }: { book: Book }) {
           />
 
           {/* Author */}
-          <label className="text-sm text-slate-400">Author</label>
+          <label className="text-sm">Author</label>
           <input
             type="text"
             value={author}
@@ -71,7 +71,7 @@ export function BookDetails({ book }: { book: Book }) {
           />
 
           {/* Shelf */}
-          <label className="text-sm text-slate-400">Shelf</label>
+          <label className="text-sm">Shelf</label>
           <select
             value={shelf}
             onChange={(e) => setShelf(e.target.value as Shelf)}
@@ -83,13 +83,13 @@ export function BookDetails({ book }: { book: Book }) {
           </select>
 
           {/* Rating */}
-          <label className="text-sm text-slate-400">Rating</label>
+          <label className="text-sm">Rating</label>
           <div>
             <StarRating rating={rating} onChange={setRating} />
           </div>
 
           {/* Genre */}
-          <label className="text-sm text-slate-400">Genre</label>
+          <label className="text-sm">Genre</label>
           <input
             type="text"
             value={genre}
@@ -98,7 +98,7 @@ export function BookDetails({ book }: { book: Book }) {
           />
 
           {/* Cover URL */}
-          <label className="text-sm text-slate-400">Cover URL</label>
+          <label className="text-sm">Cover URL</label>
           <input
             type="url"
             value={coverUrl}
@@ -109,16 +109,10 @@ export function BookDetails({ book }: { book: Book }) {
 
         {/* Buttons */}
         <div className="flex justify-center gap-4 mt-6">
-          <button
-            onClick={handleUpdate}
-            className="px-5 py-2 bg-green-600 text-white rounded-md hover:bg-green-500 transition"
-          >
+          <button onClick={handleUpdate} className="btn-primary">
             Save Changes
           </button>
-          <button
-            onClick={handleDelete}
-            className="px-5 py-2 bg-red-700 text-white rounded-md hover:bg-red-600 transition"
-          >
+          <button onClick={handleDelete} className="btn-secondary">
             Delete Book
           </button>
         </div>

@@ -15,12 +15,9 @@ export function HomeScreen() {
     <section className="flex flex-col items-center justify-start py-10 gap-7">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <h2 className="text-2xl text-gray-300">Your Books</h2>
+        <h2 className="text-2xl">Your Books</h2>
 
-        <button
-          className="text-sm px-3 py-1 border border-[#3a3530] rounded-md text-gray-300 hover:border-[#c8a96e] transition"
-          onClick={() => setIsModalOpen(true)}
-        >
+        <button className="btn-primary" onClick={() => setIsModalOpen(true)}>
           + Add New Book
         </button>
       </div>

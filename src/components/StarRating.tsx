@@ -29,7 +29,7 @@ export function StarRating({
             isEditable ? 'hover:scale-110 cursor-pointer' : 'cursor-default'
           }`}
         >
-          ★
+          <span className={n <= rating ? 'rating-star' : 'rating-star-muted'}>★</span>
         </button>
       ))}
     </div>

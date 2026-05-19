@@ -19,10 +19,7 @@ export function AddBookModal({ onClose }: { onClose: () => void }) {
 
         <AddBookForm form={form} onChange={handleChange} onSubmit={handleSubmit} />
 
-        <button
-          onClick={onClose}
-          className="text-sm px-4 py-2 rounded-md bg-red-900 text-white hover:opacity-90 transition"
-        >
+        <button onClick={onClose} className="btn-primary">
           Cancel
         </button>
       </div>
