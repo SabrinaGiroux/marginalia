@@ -10,6 +10,9 @@ export function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
         placeholder="Search by title, author, or description..."
         value={input}
         onChange={(e) => {
+          if (e.target.value.trim().length === 0) {
+            onSearch('');
+          }
           setInput(e.target.value);
         }}
         onKeyDown={(e) => {
