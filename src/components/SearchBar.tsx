@@ -20,7 +20,7 @@ export function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
         }}
         className="form-input"
       ></input>
-      <Search onClick={() => onSearch(input)} />
+      <Search onClick={() => onSearch(input)} className="cursor-pointer" />
     </div>
   );
 }
