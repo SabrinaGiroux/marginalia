@@ -1,9 +1,10 @@
 import { BookList } from '../components/BookList';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../lib/db';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { AddBookModal } from '../components/AddBookModal';
 import { SearchBar } from '../components/SearchBar';
+import { filterBooks } from '../lib/filterBooks';
 
 export function HomeScreen() {
   const books = useLiveQuery(() => db.books.toArray(), []);
@@ -11,6 +12,9 @@ export function HomeScreen() {
   const error = books === null;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredBooks = useMemo(() => filterBooks(books || [], searchQuery), [books, searchQuery]);
 
   return (
     <section className="flex flex-col py-10 gap-7 max-w-5xl mx-auto px-4 w-full">
@@ -23,7 +27,7 @@ export function HomeScreen() {
             + Add New Book
           </button>
         </div>
-        <SearchBar value="test" onChange={() => {}} />
+        <SearchBar onSearch={setSearchQuery} />
       </div>
 
       {/* Books / Loading / Error */}
@@ -32,7 +36,7 @@ export function HomeScreen() {
       {error && <p className="text-red-400">Could not load books</p>}
 
       {!isLoading && !error && (
-        <BookList books={books || []} onAddBook={() => setIsModalOpen(true)} />
+        <BookList books={filteredBooks || []} onAddBook={() => setIsModalOpen(true)} />
       )}
 
       {/* Modal */}

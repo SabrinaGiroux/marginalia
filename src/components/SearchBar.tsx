@@ -1,24 +1,23 @@
 import { Search } from 'lucide-react';
+import { useState } from 'react';
 
-export function SearchBar({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-}) {
+export function SearchBar({ onSearch }: { onSearch: (value: string) => void }) {
+  const [input, setInput] = useState('');
   return (
     <div className="flex gap-1 card items-center">
       <input
         type="search"
         placeholder="Search by title, author, or description..."
-        value={value}
+        value={input}
         onChange={(e) => {
-          onChange(e.target.value);
+          setInput(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') onSearch(input);
         }}
         className="form-input"
       ></input>
-      <Search />
+      <Search onClick={() => onSearch(input)} />
     </div>
   );
 }
