@@ -11,11 +11,11 @@ export function AddBookModal({ onClose }: { onClose: () => void }) {
     >
       {/* Modal Card */}
       <div
-        className="w-full max-w-md bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 flex flex-col gap-4"
+        className="w-full max-w-md card rounded-xl p-6 flex flex-col gap-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="text-lg text-white">Add Book</div>
+        <div className="text-lg">Add Book</div>
 
         <AddBookForm form={form} onChange={handleChange} onSubmit={handleSubmit} />
 
