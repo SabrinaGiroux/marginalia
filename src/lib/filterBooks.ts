@@ -10,7 +10,7 @@ export function filterBooks(books: Book[], query: string): Book[] {
     return (
       book.title.toLowerCase().includes(q) ||
       book.author.toLowerCase().includes(q) ||
-      (book.description?.toLowerCase().includes(q) ?? false)
+      (book.note?.toLowerCase().includes(q) ?? false)
     );
   });
 }
