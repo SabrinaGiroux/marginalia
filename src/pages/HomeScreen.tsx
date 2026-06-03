@@ -6,6 +6,7 @@ import { AddBookModal } from '../components/AddBookModal';
 import { SearchBar } from '../components/SearchBar';
 import { filterBooks } from '../lib/filterBooks';
 import { ShelfCard } from '../components/ShelfCard';
+import { SHELVES, type Shelf } from '../types/Book';
 
 export function HomeScreen() {
   const books = useLiveQuery(() => db.books.toArray(), []);
@@ -14,8 +15,12 @@ export function HomeScreen() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedShelf, setSelectedShelf] = useState<Shelf | null>(null);
 
-  const filteredBooks = useMemo(() => filterBooks(books || [], searchQuery), [books, searchQuery]);
+  const filteredBooks = useMemo(
+    () => filterBooks(books || [], searchQuery, selectedShelf),
+    [books, searchQuery, selectedShelf],
+  );
 
   return (
     <section className="flex flex-col py-10 gap-7 max-w-5xl mx-auto px-4 w-full">
@@ -31,10 +36,16 @@ export function HomeScreen() {
         <SearchBar onSearch={setSearchQuery} />
       </div>
 
-      <div>
-        <ShelfCard name="reading" selected={true} />
-        <ShelfCard name="read" selected={false} />
-        <ShelfCard name="want-to-read" selected={false} />
+      {/* Shelves */}
+      <div className="flex gap-2">
+        {SHELVES.map((shelf) => (
+          <ShelfCard
+            key={shelf}
+            name={shelf}
+            selected={selectedShelf === shelf}
+            onClick={() => setSelectedShelf((current) => (current === shelf ? null : shelf))}
+          />
+        ))}
       </div>
 
       {/* Books / Loading / Error */}
