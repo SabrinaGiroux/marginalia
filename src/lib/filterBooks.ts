@@ -1,12 +1,16 @@
-import type { Book } from '../types/Book';
+import type { Book, Shelf } from '../types/Book';
 
-export function filterBooks(books: Book[], query: string): Book[] {
+export function filterBooks(books: Book[], query: string, shelf?: Shelf | null): Book[] {
   // query should be case insensitive
   const q = query.trim().toLowerCase();
-  if (!q) return books;
 
-  // filters by title, author, description
   return books.filter((book) => {
+    // when a shelf is selected, only show books on that shelf
+    if (shelf && book.shelf !== shelf) return false;
+
+    if (!q) return true;
+
+    // filters by title, author, note
     return (
       book.title.toLowerCase().includes(q) ||
       book.author.toLowerCase().includes(q) ||
