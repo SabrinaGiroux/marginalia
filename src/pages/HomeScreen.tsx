@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { AddBookModal } from '../components/AddBookModal';
 import { SearchBar } from '../components/SearchBar';
 import { filterBooks } from '../lib/filterBooks';
+import { ShelfCard } from '../components/ShelfCard';
 
 export function HomeScreen() {
   const books = useLiveQuery(() => db.books.toArray(), []);
@@ -28,6 +29,12 @@ export function HomeScreen() {
           </button>
         </div>
         <SearchBar onSearch={setSearchQuery} />
+      </div>
+
+      <div>
+        <ShelfCard name="reading" selected={true} />
+        <ShelfCard name="read" selected={false} />
+        <ShelfCard name="want-to-read" selected={false} />
       </div>
 
       {/* Books / Loading / Error */}
