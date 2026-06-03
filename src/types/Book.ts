@@ -1,4 +1,8 @@
-export type Shelf = 'reading' | 'read' | 'want-to-read';
+// currently we have a fixed number of shelves, but eventually
+// I might add this to the db so you can create your own shelves
+export const SHELVES = ['reading', 'read', 'want-to-read'];
+
+export type Shelf = (typeof SHELVES)[number];
 
 export interface Book {
   id: number;
