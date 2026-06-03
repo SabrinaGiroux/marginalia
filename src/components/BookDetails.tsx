@@ -75,7 +75,7 @@ export function BookDetails({ book }: { book: Book }) {
           <select
             value={shelf}
             onChange={(e) => setShelf(e.target.value as Shelf)}
-            className="w-full bg-transparent border border-slate-600 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-transparent border border-slate-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="reading">Reading</option>
             <option value="read">Read</option>

@@ -28,7 +28,7 @@ export function ConfirmationModal({
       <div
         className={`
           w-full max-w-md rounded-xl p-6 flex flex-col gap-5
-          bg-[#1a1a1a]
+          card
           border
           ${danger ? 'border-red-900' : 'border-[#2a2a2a]'}
         `}
@@ -36,11 +36,11 @@ export function ConfirmationModal({
       >
         {/* Header */}
         <div className="flex flex-col gap-2">
-          <h2 className="text-lg font-medium text-white">{title}</h2>
+          <h2 className="text-lg font-medium">{title}</h2>
 
-          <p className="text-sm text-zinc-400">{message}</p>
+          <p className="text-sm ">{message}</p>
 
-          {danger && <p className="text-sm text-red-400">This action cannot be undone.</p>}
+          {danger && <p className="text-sm text-red-500">This action cannot be undone.</p>}
         </div>
 
         {/* Actions */}
@@ -48,22 +48,13 @@ export function ConfirmationModal({
           <button
             onClick={onCancel}
             className="
-              px-4 py-2 rounded-md
-              bg-zinc-800 text-white
-              hover:bg-zinc-700
-              transition
+              btn-primary
             "
           >
             {cancelText}
           </button>
 
-          <button
-            onClick={onConfirm}
-            className={`
-              px-4 py-2 rounded-md text-white transition
-              ${danger ? 'bg-red-700 hover:bg-red-600' : 'bg-blue-600 hover:bg-blue-500'}
-            `}
-          >
+          <button onClick={onConfirm} className="btn-secondary">
             {confirmText}
           </button>
         </div>
