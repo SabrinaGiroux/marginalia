@@ -20,7 +20,7 @@
   --color-brand-700: #334a74;
 
   --color-primary-50: #fffbea;
-  --color-primary-500: #e3c94b;
+  --color-primary-500: #f4d53c;
   --color-primary-600: #d4b93d;
 
   /*Light Mode*/
@@ -167,5 +167,23 @@
 
   .rating-star-muted {
     @apply text-stone-300 dark:text-slate-700;
+  }
+
+  /* Forms */
+  .form-input {
+    @apply bg-(--surface-light)
+         border border-(--border-light)
+         rounded-md p-2
+         text-(--text-light)
+         placeholder:text-(--text-muted-light)
+         outline-none
+         focus:border-primary-500
+         transition-colors duration-200
+
+         dark:bg-(--surface-dark)
+         dark:border-(--border-dark)
+         dark:text-(--text-dark)
+         dark:placeholder:text-(--text-muted-dark)
+         dark:focus:border-primary-500;
   }
 }

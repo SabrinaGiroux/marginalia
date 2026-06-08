@@ -1,6 +1,4 @@
 import { NavLink } from 'react-router';
-// import BookImg from '../assets/book-shelf-line.png';
-// import SettingsImg from '../assets/settings.png';
 import { Settings, Library } from 'lucide-react';
 
 export function NavBar() {
