@@ -25,12 +25,12 @@ export function BookCard({ book }: { book: Book }) {
 
             <div className="text-xs text-gray-400 line-clamp-1">{book?.author || 'Unknown'}</div>
           </div>
-          {/* Rating */}
-          <div className="flex justify-center mt-3">
-            <StarRating rating={rating} onChange={handleRatingChange} />
-          </div>
         </div>
       </NavLink>
+      {/* Rating */}
+      <div className="flex justify-center">
+        <StarRating rating={rating} onChange={handleRatingChange} />
+      </div>
     </li>
   );
 }
