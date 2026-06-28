@@ -2,9 +2,14 @@ import { NavLink } from 'react-router';
 import type { Book } from '../types/Book';
 import { BookCover } from './BookCover';
 import { StarRating } from './StarRating';
+import { db } from '../lib/db';
 
 export function BookCard({ book }: { book: Book }) {
   const rating = book.rating ?? 0;
+
+  const handleRatingChange = (value: number) => {
+    db.books.update(book.id, { rating: value });
+  };
 
   return (
     <li className="flex flex-col h-full min-h-70 rounded-lg border border-[#2a2a2a] p-4 gap-3 hover:border-slate-600 hover:cursor-pointer transition duration-200">
@@ -22,7 +27,7 @@ export function BookCard({ book }: { book: Book }) {
           </div>
           {/* Rating */}
           <div className="flex justify-center mt-3">
-            <StarRating rating={rating} />
+            <StarRating rating={rating} onChange={handleRatingChange} />
           </div>
         </div>
       </NavLink>
