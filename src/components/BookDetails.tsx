@@ -47,7 +47,7 @@ export function BookDetails({ book }: { book: Book }) {
   };
 
   return (
-    <section className="max-w-4xl mx-auto h-[85vh] p-1 flex flex-col gap-6 lg:w-1/2">
+    <section className="w-full sm:max-w-4xl mx-auto h-[85vh] p-1 flex flex-col gap-6 lg:w-1/2">
       <BookCover coverUrl={coverUrl} title={title} />
 
       {/* Book Fields Section */}
