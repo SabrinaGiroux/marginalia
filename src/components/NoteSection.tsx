@@ -24,7 +24,7 @@ export function NoteSection({ bookId, initialNote }: NoteSectionProps) {
   };
 
   return (
-    <section className="lg:w-1/2 sm: h-[85vh] w-full mx-auto">
+    <section className="lg:w-1/2 sm:h-[85vh] w-full mx-auto">
       <div className="card rounded-xl p-6 border border-slate-700 shadow-lg flex flex-col gap-4 h-full">
         {/* Title */}
         <h2 className="text-xl font-semibold heading-2xl">Notes</h2>

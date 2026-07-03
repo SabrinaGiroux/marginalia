@@ -13,6 +13,7 @@ export function BookDetails({ book }: { book: Book }) {
   const [shelf, setShelf] = useState(book.shelf);
   const [rating, setRating] = useState(book.rating ?? 0);
   const [genre, setGenre] = useState(book.genre);
+  const [description, setDescription] = useState(book.description);
 
   const handleDelete = async () => {
     const confirmed = window.confirm(`Are you sure you want to delete "${book.title}"?`);
@@ -46,7 +47,7 @@ export function BookDetails({ book }: { book: Book }) {
   };
 
   return (
-    <section className="max-w-4xl mx-auto p-1 flex flex-col gap-6 lg:w-1/2">
+    <section className="w-full sm:max-w-4xl mx-auto h-[85vh] p-1 flex flex-col gap-6 lg:w-1/2">
       <BookCover coverUrl={coverUrl} title={title} />
 
       {/* Book Fields Section */}
@@ -104,6 +105,16 @@ export function BookDetails({ book }: { book: Book }) {
             value={coverUrl}
             onChange={(e) => setCoverUrl(e.target.value)}
             className="w-full rounded-md bg-transparent border border-slate-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Description */}
+          <label className="text-sm">Description</label>
+          <textarea
+            placeholder="Description..."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="form-input resize-none"
+            rows={3}
           />
         </div>
 
