@@ -15,6 +15,5 @@ export interface Book {
   rating: number | null;
   shelf: Shelf;
   description: string;
-  note?: string;
   dateAdded?: number;
 }

@@ -1,49 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '../lib/db';
+import type { Note } from '../types/Note';
+import { ConfirmationModal } from './ConfirmationModal';
 
 interface NoteSectionProps {
   bookId: number;
-  initialNote: string;
 }
 
-export function NoteSection({ bookId, initialNote }: NoteSectionProps) {
-  const [note, setNote] = useState(initialNote);
+export function NoteSection({ bookId }: NoteSectionProps) {
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [noteToDelete, setNoteToDelete] = useState<number | null>(null);
 
-  const handleNoteChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNote(event.target.value);
+  useEffect(() => {
+    db.notes
+      .where('bookId')
+      .equals(bookId)
+      .toArray()
+      .then((result) => setNotes(result.sort((a, b) => b.createdAt - a.createdAt)));
+  }, [bookId]);
+
+  const addNote = async () => {
+    const now = Date.now();
+    const id = await db.notes.add({ bookId, content: '', createdAt: now, updatedAt: now } as Note);
+    setNotes([{ id, bookId, content: '', createdAt: now, updatedAt: now }, ...notes]);
   };
 
-  const saveNote = async () => {
+  const updateContent = (id: number, content: string) => {
+    setNotes(notes.map((n) => (n.id === id ? { ...n, content } : n)));
+  };
+
+  const saveNote = async (id: number) => {
+    const note = notes.find((n) => n.id === id);
+    if (!note) return;
     try {
-      await db.books.update(bookId, { note });
-      alert('Note updated successfully!');
+      await db.notes.update(id, { content: note.content, updatedAt: Date.now() });
+      alert('Note successfully updated!');
     } catch (error) {
       console.error('Error saving note:', error);
-      alert('Failed to update the note.');
+      alert('Failed to save note.');
     }
+  };
+
+  const deleteNote = async (id: number) => {
+    await db.notes.delete(id);
+    setNotes(notes.filter((n) => n.id !== id));
+    setNoteToDelete(null);
   };
 
   return (
     <section className="lg:w-1/2 sm:h-[85vh] w-full mx-auto">
-      <div className="card rounded-xl p-6 border border-slate-700 shadow-lg flex flex-col gap-4 h-full">
-        {/* Title */}
-        <h2 className="text-xl font-semibold heading-2xl">Notes</h2>
-
-        {/* Textarea */}
-        <textarea
-          value={note}
-          onChange={handleNoteChange}
-          placeholder="Write your thoughts, quotes, or reflections..."
-          className="w-full lg:h-full sm:h-full rounded-md bg-transparent px-4 py-3 text-sm leading-relaxed"
-        />
-
-        {/* Footer */}
-        <div className="flex justify-end">
-          <button onClick={saveNote} className="px-5 py-2 btn-primary transition active:scale-95">
-            Save Note
+      <div className="card rounded-xl p-6 border border-slate-700 shadow-lg flex flex-col gap-4 h-full overflow-y-auto">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold heading-2xl">Notes</h2>
+          <button onClick={addNote} className="px-3 py-1 btn-primary text-sm active:scale-95">
+            + New Note
           </button>
         </div>
+
+        {notes.length === 0 && (
+          <p className="text-sm text-slate-400">No notes yet. Add one to get started.</p>
+        )}
+
+        {notes.map((note) => (
+          <div key={note.id} className="rounded-md border border-slate-700 p-3 flex flex-col gap-2">
+            <textarea
+              value={note.content}
+              onChange={(e) => updateContent(note.id, e.target.value)}
+              placeholder="Write your thoughts, quotes, or reflections..."
+              className="w-full h-[30vh] rounded-md bg-transparent px-3 py-2 text-sm leading-relaxed"
+            />
+            <div className="flex justify-end gap-2">
+              <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary">
+                Delete
+              </button>
+              <button
+                onClick={() => saveNote(note.id)}
+                className="px-4 py-1 btn-primary text-sm active:scale-95"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
+
+      {noteToDelete !== null && (
+        <ConfirmationModal
+          title="Delete note?"
+          message="This note will be permanently removed."
+          confirmText="Delete"
+          cancelText="Cancel"
+          danger
+          onConfirm={() => deleteNote(noteToDelete)}
+          onCancel={() => setNoteToDelete(null)}
+        />
+      )}
     </section>
   );
 }
