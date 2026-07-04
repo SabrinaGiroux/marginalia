@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { db } from '../lib/db';
 import type { Note } from '../types/Note';
 import { ConfirmationModal } from './ConfirmationModal';
+import { NoteEditor } from './NoteEditor';
+
 
 interface NoteSectionProps {
   bookId: number;
@@ -62,25 +64,10 @@ export function NoteSection({ bookId }: NoteSectionProps) {
         )}
 
         {notes.map((note) => (
-          <div key={note.id} className="rounded-md border border-slate-700 p-3 flex flex-col gap-2">
-            <textarea
-              value={note.content}
-              onChange={(e) => updateContent(note.id, e.target.value)}
-              placeholder="Write your thoughts, quotes, or reflections..."
-              className="w-full h-[30vh] rounded-md bg-transparent px-3 py-2 text-sm leading-relaxed"
-            />
-            <div className="flex justify-end gap-2">
-              <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary">
-                Delete
-              </button>
-              <button
-                onClick={() => saveNote(note.id)}
-                className="px-4 py-1 btn-primary text-sm active:scale-95"
-              >
-                Save
-              </button>
-            </div>
-          </div>
+          <NoteEditor
+            value={note.content}
+            onChange={(content) => updateContent(note.id, content)}
+          />
         ))}
       </div>
 
