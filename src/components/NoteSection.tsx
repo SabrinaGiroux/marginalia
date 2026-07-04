@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../lib/db';
 import type { Note } from '../types/Note';
+import { ConfirmationModal } from './ConfirmationModal';
 
 interface NoteSectionProps {
   bookId: number;
@@ -8,6 +9,7 @@ interface NoteSectionProps {
 
 export function NoteSection({ bookId }: NoteSectionProps) {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [noteToDelete, setNoteToDelete] = useState<number | null>(null);
 
   useEffect(() => {
     db.notes
@@ -32,6 +34,7 @@ export function NoteSection({ bookId }: NoteSectionProps) {
     if (!note) return;
     try {
       await db.notes.update(id, { content: note.content, updatedAt: Date.now() });
+      alert("Note successfully updated!")
     } catch (error) {
       console.error('Error saving note:', error);
       alert('Failed to save note.');
@@ -41,6 +44,7 @@ export function NoteSection({ bookId }: NoteSectionProps) {
   const deleteNote = async (id: number) => {
     await db.notes.delete(id);
     setNotes(notes.filter((n) => n.id !== id));
+    setNoteToDelete(null);
   };
 
   return (
@@ -63,10 +67,10 @@ export function NoteSection({ bookId }: NoteSectionProps) {
               value={note.content}
               onChange={(e) => updateContent(note.id, e.target.value)}
               placeholder="Write your thoughts, quotes, or reflections..."
-              className="w-full min-h-[100px] rounded-md bg-transparent px-3 py-2 text-sm leading-relaxed"
+              className="w-full h-[30vh] rounded-md bg-transparent px-3 py-2 text-sm leading-relaxed"
             />
             <div className="flex justify-end gap-2">
-              <button onClick={() => deleteNote(note.id)} className="btn-secondary">
+              <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary">
                 Delete
               </button>
               <button onClick={() => saveNote(note.id)} className="px-4 py-1 btn-primary text-sm active:scale-95">
@@ -76,6 +80,18 @@ export function NoteSection({ bookId }: NoteSectionProps) {
           </div>
         ))}
       </div>
+
+      {noteToDelete !== null && (
+        <ConfirmationModal
+          title="Delete note?"
+          message="This note will be permanently removed."
+          confirmText="Delete"
+          cancelText="Cancel"
+          danger
+          onConfirm={() => deleteNote(noteToDelete)}
+          onCancel={() => setNoteToDelete(null)}
+        />
+      )}
     </section>
   );
 }
