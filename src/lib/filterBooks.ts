@@ -10,11 +10,11 @@ export function filterBooks(books: Book[], query: string, shelf?: Shelf | null):
 
     if (!q) return true;
 
-    // filters by title, author, note
+    // filters by title, author, description
     return (
       book.title.toLowerCase().includes(q) ||
       book.author.toLowerCase().includes(q) ||
-      (book.note?.toLowerCase().includes(q) ?? false)
+      (book.description?.toLowerCase().includes(q) ?? false)
     );
   });
 }
