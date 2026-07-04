@@ -34,7 +34,7 @@ export function NoteSection({ bookId }: NoteSectionProps) {
     if (!note) return;
     try {
       await db.notes.update(id, { content: note.content, updatedAt: Date.now() });
-      alert("Note successfully updated!")
+      alert('Note successfully updated!');
     } catch (error) {
       console.error('Error saving note:', error);
       alert('Failed to save note.');
@@ -73,7 +73,10 @@ export function NoteSection({ bookId }: NoteSectionProps) {
               <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary">
                 Delete
               </button>
-              <button onClick={() => saveNote(note.id)} className="px-4 py-1 btn-primary text-sm active:scale-95">
+              <button
+                onClick={() => saveNote(note.id)}
+                className="px-4 py-1 btn-primary text-sm active:scale-95"
+              >
                 Save
               </button>
             </div>

@@ -45,7 +45,7 @@ export async function exportBooks() {
     books.map(async (book) => {
       const notes = await db.notes.where('bookId').equals(book.id).toArray();
       return { ...book, notes };
-    })
+    }),
   );
 
   const payload = formatDataForExport(booksWithNotes);
@@ -97,14 +97,21 @@ export async function importBooks(json: string, replaceBooks: boolean) {
       await db.notes.clear();
     }
 
-    for (const { id, notes, note, ...bookFields } of books as (BookWithNotes & { note?: string })[]) {
+    for (const { id, notes, note, ...bookFields } of books as (BookWithNotes & {
+      note?: string;
+    })[]) {
       // Remove ids to avoid primary key conflicts, then get the new id
       const newBookId = await db.books.add(bookFields as Book);
 
       // v1 have a single "note" string instead of a notes array
       if (note?.trim()) {
         const now = Date.now();
-        await db.notes.add({ bookId: newBookId, content: note, createdAt: now, updatedAt: now } as Note);
+        await db.notes.add({
+          bookId: newBookId,
+          content: note,
+          createdAt: now,
+          updatedAt: now,
+        } as Note);
       }
 
       // v2+ backups have a notes array
