@@ -187,3 +187,28 @@
          dark:focus:border-primary-500;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .EasyMDEContainer .CodeMirror,
+  .EasyMDEContainer .editor-preview,
+  .EasyMDEContainer .editor-preview-side,
+  .EasyMDEContainer .editor-toolbar,
+  .EasyMDEContainer .editor-statusbar {
+    background-color: var(--surface-dark);
+    color: var(--text-dark);
+    border-color: var(--border-dark);
+  }
+
+  .EasyMDEContainer .CodeMirror-cursor {
+    border-color: var(--text-dark);
+  }
+
+  .EasyMDEContainer .editor-toolbar button {
+    color: var(--text-dark);
+  }
+
+  .EasyMDEContainer .editor-toolbar button.active,
+  .EasyMDEContainer .editor-toolbar button:hover {
+    background-color: var(--border-dark);
+  }
+}
