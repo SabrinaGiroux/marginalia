@@ -73,7 +73,10 @@ export function NoteSection({ bookId }: NoteSectionProps) {
               <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary text-sm">
                 Delete Note
               </button>
-              <button onClick={() => saveNote(note.id, note.content)} className="px-4 py-1 btn-primary text-sm active:scale-95">
+              <button
+                onClick={() => saveNote(note.id, note.content)}
+                className="px-4 py-1 btn-primary text-sm active:scale-95"
+              >
                 Save
               </button>
             </div>

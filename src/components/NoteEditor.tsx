@@ -21,7 +21,7 @@ export function NoteEditor({ value, onChange, onSave }: NoteEditorProps) {
       element: textareaRef.current,
       initialValue: value,
       spellChecker: false,
-      sideBySideFullscreen: false, 
+      sideBySideFullscreen: false,
       minHeight: '30vh',
     });
 
