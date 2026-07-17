@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { db } from '../lib/db';
+import { db, updateNote } from '../lib/db';
 import type { Note } from '../types/Note';
 import { ConfirmationModal } from './ConfirmationModal';
+import { NoteEditor } from './NoteEditor';
 
 interface NoteSectionProps {
   bookId: number;
@@ -10,6 +11,7 @@ interface NoteSectionProps {
 export function NoteSection({ bookId }: NoteSectionProps) {
   const [notes, setNotes] = useState<Note[]>([]);
   const [noteToDelete, setNoteToDelete] = useState<number | null>(null);
+  const [showSavedToast, setShowSavedToast] = useState(false);
 
   useEffect(() => {
     db.notes
@@ -26,15 +28,14 @@ export function NoteSection({ bookId }: NoteSectionProps) {
   };
 
   const updateContent = (id: number, content: string) => {
-    setNotes(notes.map((n) => (n.id === id ? { ...n, content } : n)));
+    setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, content } : n)));
   };
 
-  const saveNote = async (id: number) => {
-    const note = notes.find((n) => n.id === id);
-    if (!note) return;
+  const saveNote = async (id: number, content: string) => {
     try {
-      await db.notes.update(id, { content: note.content, updatedAt: Date.now() });
-      alert('Note successfully updated!');
+      await updateNote(id, content);
+      setShowSavedToast(true);
+      setTimeout(() => setShowSavedToast(false), 1500);
     } catch (error) {
       console.error('Error saving note:', error);
       alert('Failed to save note.');
@@ -62,19 +63,18 @@ export function NoteSection({ bookId }: NoteSectionProps) {
         )}
 
         {notes.map((note) => (
-          <div key={note.id} className="rounded-md border border-slate-700 p-3 flex flex-col gap-2">
-            <textarea
+          <div key={note.id} className="flex flex-col gap-2">
+            <NoteEditor
               value={note.content}
-              onChange={(e) => updateContent(note.id, e.target.value)}
-              placeholder="Write your thoughts, quotes, or reflections..."
-              className="w-full h-[30vh] rounded-md bg-transparent px-3 py-2 text-sm leading-relaxed"
+              onChange={(content) => updateContent(note.id, content)}
+              onSave={() => saveNote(note.id, note.content)}
             />
             <div className="flex justify-end gap-2">
-              <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary">
-                Delete
+              <button onClick={() => setNoteToDelete(note.id)} className="btn-secondary text-sm">
+                Delete Note
               </button>
               <button
-                onClick={() => saveNote(note.id)}
+                onClick={() => saveNote(note.id, note.content)}
                 className="px-4 py-1 btn-primary text-sm active:scale-95"
               >
                 Save
@@ -94,6 +94,12 @@ export function NoteSection({ bookId }: NoteSectionProps) {
           onConfirm={() => deleteNote(noteToDelete)}
           onCancel={() => setNoteToDelete(null)}
         />
+      )}
+
+      {showSavedToast && (
+        <div className="fixed bottom-6 right-6 btn-primary px-4 py-2 rounded-lg shadow-lg text-sm">
+          Saved!
+        </div>
       )}
     </section>
   );

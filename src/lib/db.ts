@@ -34,4 +34,12 @@ db.version(2)
     }
   });
 
+// Database functions
+export async function updateNote(id: number, content: string) {
+  return db.notes.update(id, {
+    content,
+    updatedAt: Date.now(),
+  });
+}
+
 export { db };

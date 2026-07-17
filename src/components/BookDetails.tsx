@@ -51,7 +51,7 @@ export function BookDetails({ book }: { book: Book }) {
       <BookCover coverUrl={coverUrl} title={title} />
 
       {/* Book Fields Section */}
-      <div className="card rounded-lg p-2 border border-slate-700">
+      <div className="card rounded-lg p-2 border border-slate-700 p-5">
         <div className="grid grid-cols-[120px_1fr] gap-y-2 gap-x-4 items-center">
           {/* Title */}
           <label className="text-sm">Title</label>
