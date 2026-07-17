@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../lib/db';
+import { db, updateNote } from '../lib/db';
 import type { Note } from '../types/Note';
 import { ConfirmationModal } from './ConfirmationModal';
 import { NoteEditor } from './NoteEditor';
@@ -33,7 +33,7 @@ export function NoteSection({ bookId }: NoteSectionProps) {
 
   const saveNote = async (id: number, content: string) => {
     try {
-      await db.notes.update(id, { content, updatedAt: Date.now() });
+      await updateNote(id, content);
       setShowSavedToast(true);
       setTimeout(() => setShowSavedToast(false), 1500);
     } catch (error) {
