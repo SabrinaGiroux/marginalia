@@ -58,22 +58,32 @@ export async function exportBooks() {
 /**
  * IMPORT FUNCTIONS
  */
-export function parseAndValidate(json: string): ExportPayload {
+
+type ImportedBook = BookWithNotes & {
+  note?: string; // Present only in v1 backups
+};
+
+type ImportPayload = {
+  version: number;
+  exportedAt: string;
+  data: {
+    books: ImportedBook[];
+  };
+};
+
+export function parseAndValidate(json: string): ImportPayload {
   let parsed: unknown;
 
   try {
-    // parse the provided json file
     parsed = JSON.parse(json);
   } catch {
     throw new Error('Invalid JSON Format');
   }
 
-  // Validate parsed json's structure
   if (typeof parsed !== 'object' || parsed === null) {
     throw new Error('Invalid JSON structure');
   }
 
-  // Check to make sure data + books structure is correct
   const obj = parsed as Record<string, unknown>;
 
   if (
@@ -84,7 +94,7 @@ export function parseAndValidate(json: string): ExportPayload {
     throw new Error('Invalid data format');
   }
 
-  return obj as unknown as ExportPayload;
+  return obj as ImportPayload;
 }
 
 export async function importBooks(json: string, replaceBooks: boolean) {
@@ -97,9 +107,7 @@ export async function importBooks(json: string, replaceBooks: boolean) {
       await db.notes.clear();
     }
 
-    for (const { id, notes, note, ...bookFields } of books as (BookWithNotes & {
-      note?: string;
-    })[]) {
+    for (const { id: _id, notes, note, ...bookFields } of books) {
       // Remove ids to avoid primary key conflicts, then get the new id
       const newBookId = await db.books.add(bookFields as Book);
 
@@ -115,8 +123,11 @@ export async function importBooks(json: string, replaceBooks: boolean) {
       }
 
       // v2+ backups have a notes array
-      for (const { id: noteId, bookId, ...noteFields } of notes ?? []) {
-        await db.notes.add({ ...noteFields, bookId: newBookId } as Note);
+      for (const { id: _noteId, bookId: _bookId, ...noteFields } of notes ?? []) {
+        await db.notes.add({
+          ...noteFields,
+          bookId: newBookId,
+        } as Note);
       }
     }
   });
