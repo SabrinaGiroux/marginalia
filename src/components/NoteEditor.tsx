@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import EasyMDE from 'easymde';
 import 'easymde/dist/easymde.min.css';
+import './NoteEditor.css';
+
 
 interface NoteEditorProps {
   value: string;
